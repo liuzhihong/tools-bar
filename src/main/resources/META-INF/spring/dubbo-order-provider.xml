@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	
+	<!-- 声明需要暴露的服务接口 -->
+	<dubbo:service interface="com.midea.trade.core.api.service.OrderUpdateFacade" ref="orderUpdateFacade" >
+		<dubbo:method name="execOrderPause" timeout="10000" retries="0" />
+		<dubbo:method name="updateOrderInfo" timeout="5000" retries="0" />
+		<dubbo:method name="execOrderAudit" timeout="5000" retries="0" />
+	</dubbo:service>
+	
+	<dubbo:service interface="com.midea.trade.core.api.service.OrderAddFacade" ref="orderAddFacade">	
+			<dubbo:method name="addOrderInfo" timeout="5000" retries="0" />												
+	</dubbo:service>
+																
+	<dubbo:service interface="com.midea.trade.core.api.service.OrderOpenFacade" ref="orderOpenFacade" >
+		<dubbo:method name="cancelPack" timeout="5000" retries="0" />
+		<dubbo:method name="receiveLogisticsNo" timeout="10000" retries="2"/>
+	</dubbo:service>
+																
+	<dubbo:service interface="com.midea.trade.core.api.service.OrderItemFacade"
+																ref="orderItemFacade" />												
+</beans>

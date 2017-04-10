@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mybatis="http://www.mybatis.org/schema/mybatis"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	http://www.mybatis.org/schema/mybatis
+	http://www.mybatis.org/schema/mybatis/mybatis-spring.xsd"
+	default-lazy-init="true">
+
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxTotal" value="${redis.pool.maxTotal}" />
+		<property name="maxIdle" value="${redis.pool.maxIdle}" />
+		<property name="maxWaitMillis" value="${redis.pool.maxWaitMillis}" />
+		<property name="testOnBorrow" value="${redis.pool.testOnBorrow}" />
+	</bean>
+    
+    <bean id="jedisshardInfo1" class="redis.clients.jedis.JedisShardInfo">     
+         <constructor-arg index="0" value="${redis1.ip}" /> 
+         <constructor-arg index="1" value="${redis1.port}"/>     
+    </bean>   
+    
+     <bean id="jedisshardInfo2" class="redis.clients.jedis.JedisShardInfo">     
+         <constructor-arg index="0" value="${redis2.ip}" /> 
+         <constructor-arg index="1" value="${redis2.port}"/>     
+    </bean> 
+     
+    <bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool">     
+       <constructor-arg index="0" ref="jedisPoolConfig" />     
+       <constructor-arg index="1">     
+          <list>     
+            <ref bean="jedisshardInfo1" />     
+            <ref bean="jedisshardInfo2"/>
+          </list>     
+       </constructor-arg>     
+    </bean>
+    
+    </beans>

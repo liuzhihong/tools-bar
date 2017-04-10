@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+    http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+	<bean id="appSpringContext" class="com.midea.trade.core.impl.core.spring.AppSpringContext"
+		lazy-init="false" />
+
+	<bean id="propertyConfigurer"
+		class="com.midea.trade.encrypt.configurer.EncryptPropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:db.properties</value>
+				<value>classpath:trade_config.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<context:annotation-config />
+
+	<context:component-scan base-package="com.baidu,com.midea.trade.core.impl" />
+
+	<!-- 开启AOP监听 只对当前配置文件有效 -->
+	<aop:aspectj-autoproxy proxy-target-class="true" expose-proxy="true" />
+
+	<!-- 开启注解事务 只对当前配置文件有效 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 使用disconf必须添加以下配置 -->
+	<bean id="disconfMgrBean" class="com.baidu.disconf.client.DisconfMgrBean"
+		destroy-method="destory">
+		<property name="scanPackage" value="com.midea.trade.core.impl.disconf" />
+	</bean>
+	
+	<bean id="disconfMgrBean2" class="com.baidu.disconf.client.DisconfMgrBeanSecond"
+		init-method="init" destroy-method="destory">
+	</bean>
+
+	<bean id="defaultMQProducer" class="com.alibaba.rocketmq.client.producer.DefaultMQProducer"
+		scope="singleton">
+		<constructor-arg index="0">
+			<value>${rocketmq.producerGroupName}</value>
+		</constructor-arg>
+		<property name="namesrvAddr" value="${rocketmq.namesrvAddr}" />
+		<property name="instanceName" value="${rocketmq.instanceProducerName}" />
+	</bean>
+
+	<bean id="defaultMQPushConsumer"
+		class="com.alibaba.rocketmq.client.consumer.DefaultMQPushConsumer"
+		scope="singleton">
+		<constructor-arg index="0">
+			<value>${rocketmq.consumerGroupName}</value>
+		</constructor-arg>
+		<property name="namesrvAddr" value="${rocketmq.namesrvAddr}" />
+		<property name="instanceName" value="${rocketmq.instanceConsumberName}" />
+	</bean>
+	
+	<import resource="classpath:trade-core-spring/applicationContext-dubbo.xml" />
+	<import resource="classpath:trade-core-spring/applicationContext-rpc.xml" />
+	<import resource="classpath:trade-core-spring/applicationContext-trade-datasource.xml" />
+	<import resource="classpath:trade-core-spring/applicationContext-trade-dao.xml" />
+	<import resource="classpath:config/redis_config.xml" />
+</beans>

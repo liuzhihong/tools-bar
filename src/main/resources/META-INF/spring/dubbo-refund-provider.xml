@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	
+	<dubbo:service interface="com.midea.trade.core.api.service.RefundApplyFacade" ref="refundApplyFacade" >
+		<dubbo:method name="execRefundApplyAudit" timeout="10000" retries="0" />
+		<dubbo:method name="rejectRefundApply" timeout="10000" retries="0" />
+		<dubbo:method name="addRefundApply" timeout="5000" retries="0" />
+		<dubbo:method name="updateRefundApply" timeout="5000" retries="0" />	
+		<dubbo:method name="replenishReturnAddr" timeout="5000" retries="0" />
+		<dubbo:method name="receiveReturnComplete" timeout="10000" retries="0"/>								
+	</dubbo:service>
+																
+																
+	<dubbo:service interface="com.midea.trade.core.api.service.RefundFacade" ref="refundFacade" >	
+		<dubbo:method name="execRefundByOnline" timeout="10000" retries="0" />
+		<dubbo:method name="execRefundByOffline" timeout="5000" retries="0" />
+	</dubbo:service>															
+																
+</beans>

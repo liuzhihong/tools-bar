@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+    
+   <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+        <property name="driverClassName" value="${database.driverClassName}" />
+        <property name="url" value="${database.url}" />
+        <property name="username" value="${encrypt.database.username}" />
+        <property name="password" value="${encrypt.database.password}" />
+        <property name="maxActive"><value>200</value></property>   
+        <property name="initialSize"><value>5</value></property>   
+        <property name="maxWait"><value>30000</value></property>        <!-- 超时等待时间  以毫秒为单位 --> 
+        <property name="maxIdle"><value>20</value></property>            <!-- 最大空闲连接 -->
+        <property name="minIdle"><value>5</value></property>             <!-- 最小空闲连接 -->
+        <property name="removeAbandoned"><value>true</value></property>  <!-- 是否自动回收超时连接 --> 
+        <property name="removeAbandonedTimeout"><value>30</value></property>  <!-- 超时时间(以秒数为单位) --> 
+        <property name="testWhileIdle"><value>true</value></property>    <!-- 打开检查,用异步线程evict进行检查 -->   
+        <property name="testOnBorrow"><value>true</value></property>   
+        <property name="testOnReturn"><value>false</value></property>   
+        <property name="validationQuery"><value>select 1</value></property>          
+        <property name="numTestsPerEvictionRun"><value>20</value></property>  
+    </bean>
+    
+    <bean id="readDataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+        <property name="driverClassName" value="${read.database.driverClassName}" />
+        <property name="url" value="${read.database.url}"/>
+        <property name="username" value="${encrypt.read.database.username}" />
+        <property name="password" value="${encrypt.read.database.password}" />
+        <property name="maxActive"><value>100</value></property>   
+        <property name="initialSize"><value>5</value></property>  
+        <property name="maxWait"><value>30000</value></property>        <!-- 超时等待时间  以毫秒为单位 --> 
+        <property name="maxIdle"><value>20</value></property>            <!-- 最大空闲连接 -->
+        <property name="minIdle"><value>5</value></property>             <!-- 最小空闲连接 -->
+        <property name="removeAbandoned"><value>true</value></property>  <!-- 是否自动回收超时连接 --> 
+        <property name="removeAbandonedTimeout"><value>30</value></property>  <!-- 超时时间(以秒数为单位) --> 
+        <property name="testWhileIdle"><value>true</value></property>    <!-- 打开检查,用异步线程evict进行检查 -->   
+        <property name="testOnBorrow"><value>true</value></property>   
+        <property name="testOnReturn"><value>false</value></property>   
+        <property name="validationQuery"><value>select 1</value></property>          
+        <property name="numTestsPerEvictionRun"><value>20</value></property>  
+    </bean>
+    
+</beans>

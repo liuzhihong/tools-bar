@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<dubbo:reference id="areaIdFacade"
+		interface="com.midea.trade.manage.api.service.AreaIdFacade">
+	</dubbo:reference>
+	
+	<dubbo:reference id="shopReturnAddrFacade"
+		interface="com.midea.trade.manage.api.service.ShopReturnAddrFacade">
+	</dubbo:reference>
+	
+	<dubbo:reference id="dictionaryMapFacade"
+		interface="com.midea.trade.manage.api.service.DictionaryMapFacade">
+	</dubbo:reference>
+	
+	<dubbo:reference id="shopFacade"
+		interface="com.midea.trade.manage.api.service.ShopFacade">
+	</dubbo:reference>
+	
+	<dubbo:reference id="icSkuFacade"
+		interface="com.midea.trade.manage.api.service.IcSkuFacade">
+	</dubbo:reference>
+	
+	<dubbo:reference id="storeFacade"
+		interface="com.midea.trade.manage.api.service.StoreFacade">
+	</dubbo:reference>
+	
+</beans>

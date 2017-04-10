@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	
+	<!-- 生成远程服务代理，可以像使用本地bean一样使用Service -->
+	<dubbo:reference id="tradeFacade"
+		interface="com.midea.trade.gateway.api.service.TradeFacade">
+	</dubbo:reference>
+	
+	<dubbo:reference id="messageMonitor"
+		interface="com.midea.trade.gateway.api.service.MessageMonitor">
+	</dubbo:reference>
+	
+	<dubbo:reference id="iShopStoreItemSalesDailyFacade"
+		interface="com.midea.trade.erp.api.dubbo.IShopStoreItemSalesDailyFacade" timeout="500"
+		group="TRADE_ERP_SHOP_STORE_ITEM_SALES" version="0.0.1">
+	</dubbo:reference>
+</beans>
