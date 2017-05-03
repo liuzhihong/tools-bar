@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liu.core.dao.TOuInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.liu.core.entity.TOuInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="ou_id" property="ouId" jdbcType="INTEGER" />
+    <result column="ou_name" property="ouName" jdbcType="VARCHAR" />
+    <result column="ou_address" property="ouAddress" jdbcType="VARCHAR" />
+    <result column="cretae_time" property="cretaeTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, ou_id, ou_name, ou_address, cretae_time, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.liu.core.entity.TOuInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_ou_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_ou_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_ou_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.liu.core.entity.TOuInfoExample" >
+    delete from t_ou_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.liu.core.entity.TOuInfo" >
+    insert into t_ou_info (id, ou_id, ou_name, 
+      ou_address, cretae_time, update_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{ouId,jdbcType=INTEGER}, #{ouName,jdbcType=VARCHAR}, 
+      #{ouAddress,jdbcType=VARCHAR}, #{cretaeTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.liu.core.entity.TOuInfo" >
+    insert into t_ou_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ouId != null" >
+        ou_id,
+      </if>
+      <if test="ouName != null" >
+        ou_name,
+      </if>
+      <if test="ouAddress != null" >
+        ou_address,
+      </if>
+      <if test="cretaeTime != null" >
+        cretae_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="ouId != null" >
+        #{ouId,jdbcType=INTEGER},
+      </if>
+      <if test="ouName != null" >
+        #{ouName,jdbcType=VARCHAR},
+      </if>
+      <if test="ouAddress != null" >
+        #{ouAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cretaeTime != null" >
+        #{cretaeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.liu.core.entity.TOuInfoExample" resultType="java.lang.Integer" >
+    select count(*) from t_ou_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_ou_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.ouId != null" >
+        ou_id = #{record.ouId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ouName != null" >
+        ou_name = #{record.ouName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ouAddress != null" >
+        ou_address = #{record.ouAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cretaeTime != null" >
+        cretae_time = #{record.cretaeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_ou_info
+    set id = #{record.id,jdbcType=BIGINT},
+      ou_id = #{record.ouId,jdbcType=INTEGER},
+      ou_name = #{record.ouName,jdbcType=VARCHAR},
+      ou_address = #{record.ouAddress,jdbcType=VARCHAR},
+      cretae_time = #{record.cretaeTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liu.core.entity.TOuInfo" >
+    update t_ou_info
+    <set >
+      <if test="ouId != null" >
+        ou_id = #{ouId,jdbcType=INTEGER},
+      </if>
+      <if test="ouName != null" >
+        ou_name = #{ouName,jdbcType=VARCHAR},
+      </if>
+      <if test="ouAddress != null" >
+        ou_address = #{ouAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cretaeTime != null" >
+        cretae_time = #{cretaeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liu.core.entity.TOuInfo" >
+    update t_ou_info
+    set ou_id = #{ouId,jdbcType=INTEGER},
+      ou_name = #{ouName,jdbcType=VARCHAR},
+      ou_address = #{ouAddress,jdbcType=VARCHAR},
+      cretae_time = #{cretaeTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -13,6 +13,8 @@
 		<dubbo.version>2.5.3</dubbo.version>
 		<zkclient.version>0.1</zkclient.version>
 		<zookeeper.version>3.4.5</zookeeper.version>
+		<sharding-jdbc.version>1.4.2</sharding-jdbc.version>
+		<junit.version>4.11</junit.version>
 		<profiles.dir>src/profiles</profiles.dir>
 	</properties>
 
@@ -44,7 +46,18 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
@@ -56,7 +69,11 @@
 			<artifactId>mybatis</artifactId>
 			<version>3.2.7</version>
 		</dependency>
-
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.2.2</version>
+		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -318,6 +335,16 @@
 			<groupId>org.apache.kafka</groupId>
 			<artifactId>kafka-clients</artifactId>
 			<version>0.8.2.2</version>
+		</dependency>
+		<dependency>
+  			<groupId>com.dangdang</groupId>
+ 			<artifactId>sharding-jdbc-core</artifactId>
+  			<version>${sharding-jdbc.version}</version>
+		</dependency>
+		<dependency>
+  			<groupId>com.dangdang</groupId>
+  			<artifactId>sharding-jdbc-config-spring</artifactId>
+  			<version>${sharding-jdbc.version}</version>
 		</dependency>
 	</dependencies>
 	<build>
